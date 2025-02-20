@@ -42,6 +42,13 @@
     "text": "6.2 Plot the Percent (%) Ind/m^3 based on Month and Year\nEither sum or mean\n\n\nCode\ndat_filtered %&gt;%\n    summarise(\n    .by = c(site, year, date_month, taxa_level),\n    ind_m3 = mean(ind_m3)\n    # ind_m3 = sum(ind_m3)\n  ) %&gt;%\n  mutate(\n    .by     = c(site, date_month),\n    total   = sum(ind_m3),\n    percent = ind_m3 / total\n  ) %&gt;%\n  mutate(\n    taxa_level = fct_reorder(taxa_level, ind_m3, .fun = max),\n    date_month2 = fct_reorder(format(date_month, \"%b %Y\"), date_month)\n  ) %&gt;%\n  ggplot(\n    aes(x = date_month2, y = percent, fill = taxa_level, \n        color = after_scale(prismatic::clr_darken(fill, 0.3))\n        )\n         ) +\n  geom_col() +\n  labs(\n    y = NULL,\n    x = \"Year\",\n    fill  = \"Taxa Name\",\n    title = glue(\"`{const$taxa_lvl[1]}` for Year for Station {const$site} (mesh size {const$mesh})\")\n  ) +\n  scale_y_continuous(\n    expand = c(0, 0),\n    labels = scales::label_percent()\n  ) +\n  scale_fill_viridis_d(option = \"A\") +\n  guides(fill = guide_legend(ncol = 2, byrow = TRUE)) +\n  theme_classic() +\n  theme(\n    legend.box.background = element_rect(color = \"grey\"),\n    axis.text.x = element_text(angle = 45, hjust = 1)\n  )"
   },
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "seus-mbon-zooplankton-microscopy",
+    "section": "",
+    "text": "seus-mbon-zooplankton-microscopy\nAnalyses of SouthEast US MBON research cruise zooplankton microscopy data."
+  },
+  {
     "objectID": "qmd/simple_csv_check.html",
     "href": "qmd/simple_csv_check.html",
     "title": "CSV checker",
